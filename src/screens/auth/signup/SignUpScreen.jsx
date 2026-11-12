@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, TextInput } from "react-native";
 
 // React COmponents
 import { Input } from "../../../components/Input/Input";
-import { Email } from "../../../components/email/Email";
+import { Email } from "../../../components/Email/Email";
 import { Button } from "../../../components/Button/Button";
 
 // Colors

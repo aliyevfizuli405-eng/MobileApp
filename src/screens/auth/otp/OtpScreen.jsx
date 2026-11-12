@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
-import { Button } from "./../../../components/Button/Button";
+import { Button } from "../../../components/Button/Button";
 
 export const OtpScreen = () => {
   return (
