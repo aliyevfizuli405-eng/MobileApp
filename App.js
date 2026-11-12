@@ -1,20 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// React 
+import { useState, useEffect } from "react";
+
+// Expo
+import { StatusBar } from "expo-status-bar";
+import { useFonts } from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
+
+// React Native
+import {
+  StyleSheet,
+  Image,
+  Text,
+  Pressable,
+  ImageBackground,
+  Alert,
+  View,
+  TextInput
+} from "react-native";
+
+// Icons and colors
+import play from "./assets/images/playicon.png";
+import { reng } from "./src/colors";
+import { fontsToLoad } from "./src/fonts";
+
+// Screens and Componenets
+import { RegisterScreen } from "./src/screens/auth/register/RegisterScreen";
+import { Button } from "./src/components/Button/Button";
+import { SignUpScreen } from "./src/screens/auth/signup/SignUpScreen";
+import { OtpScreen } from "./src/screens/auth/otp/OtpScreen";
+import { LoginScreen } from "./src/screens/auth/login/LoginScreen";
+
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [fontsLoaded, fontError] = useFonts(fontsToLoad);
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+    <StatusBar/>
+  <RegisterScreen/>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
