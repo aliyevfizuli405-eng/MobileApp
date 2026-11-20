@@ -1,13 +1,13 @@
 import { Text, Pressable, StyleSheet,T} from "react-native";
-import { reng } from "../../colors";
-import { fonts } from "../../fonts";
+import { reng } from "../../constants/colors";
+import { fonts } from "../../constants/fonts";
 
 
 
-export const Button = ({ text, style }) => {
+export const Button = ({ text, style,callback}) => {
   return (
     <>
-      <Pressable style={styles.button}>
+      <Pressable style={styles.button} onPress={callback}> 
         <Text
           style={{
             color: "#fff",

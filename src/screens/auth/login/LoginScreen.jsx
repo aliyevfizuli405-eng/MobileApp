@@ -12,7 +12,7 @@ import {
 import { Input } from "../../../components/Input/Input";
 
 // Colors
-import { reng } from "../../../colors";
+import { reng } from "../../../constants/colors";
 import { Button } from "../../../components/Button/Button";
 
 // Images
@@ -33,7 +33,7 @@ export const LoginScreen = () => {
         <View style={styles.googleContainer}>
           <Pressable style={styles.googleButton}>
             <Image
-              source={require("./../../../../assets/images/google.png")}
+              source={require("../../../assets/images/google.png")}
               style={{ marginRight: "8" }}
             ></Image>
             <Text style={{ color: "#757575", fontWeight: 600, fontSize: 20 }}>
@@ -75,7 +75,7 @@ export const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 64,
+    backgroundColor:"#fff"
   },
   skipContainer: {
     display: "flex",

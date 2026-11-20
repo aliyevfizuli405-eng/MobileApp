@@ -1,5 +1,5 @@
 // React Native
-import { Text, View, StyleSheet, TextInput } from "react-native";
+import { Text, View, StyleSheet, TextInput,Pressable } from "react-native";
 
 // React COmponents
 import { Input } from "../../../components/Input/Input";
@@ -7,9 +7,11 @@ import { Email } from "../../../components/Email/Email";
 import { Button } from "../../../components/Button/Button";
 
 // Colors
-import { reng } from "../../../colors";
+import { reng } from "../../../constants/colors";
+import { useNavigation } from "@react-navigation/native";
 
 export const SignUpScreen = () => {
+  const navigation=useNavigation()
   return (
     <>
       <View style={styles.container}>
@@ -52,7 +54,18 @@ export const SignUpScreen = () => {
               <Email info="Password" text="Enter Password" />
             </View>
             <View style={{ marginTop: 24 }}>
-              <Button text="Create Account" />
+              <Pressable style={styles.button} onPress={()=>{navigation.navigate("OtpScreen")}}>
+                            <Text
+                              style={{
+                                color: "#fff",
+                                textAlign: "center",
+                                fontWeight: 600,
+                                fontSize: 20,
+                              }}
+                            >
+                              Create an account
+                            </Text>
+                          </Pressable>
             </View>
           </View>
         </View>
@@ -65,7 +78,6 @@ const styles = StyleSheet.create({
   container: {
     display: "flex",
     flex: 1,
-    paddingTop: 60,
     backgroundColor:"#fff"
   },
   skipContainer: {
@@ -121,4 +133,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginRight: 4,
   },
+  button: {
+    backgroundColor: reng.primaryColor,
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+  },
+  buttonPressed: {
+    opacity: 0.7,
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "600",
+  }
 });

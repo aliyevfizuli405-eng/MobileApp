@@ -1,5 +1,5 @@
 import { View, Text, TextInput, StyleSheet } from "react-native";
-import { reng } from "../../colors";
+import { reng } from "../.././constants/colors";
 export const Email = ({info,text}) => {
   return (
     <>

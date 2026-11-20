@@ -7,8 +7,10 @@ import {
   TextInput,
 } from "react-native";
 import { Button } from "../../../components/Button/Button";
+import { useNavigation } from "@react-navigation/native";
 
 export const OtpScreen = () => {
+  const navigation=useNavigation()
   return (
     <>
       <View style={styles.container}>
@@ -18,7 +20,7 @@ export const OtpScreen = () => {
           >
             <Image
               style={{ marginTop: 16 }}
-              source={require("./../../../../assets/images/leftArrow.png")}
+              source={require("../../../assets/images/leftArrow.png")}
             />
           </View>
           <View>
@@ -39,7 +41,7 @@ export const OtpScreen = () => {
           <Text style={{fontSize:16,fontWeight:700,color:"#616161",textAlign:"center",marginTop:8}}>Resend code</Text>
         </View>
         <View style={{ paddingHorizontal: 16, paddingVertical: 44 }}>
-          <Button text="Verify" />
+          <Button text="Verify" callback={()=>{navigation.navigate("Login")}}/>
         </View>
       </View>
     </>
@@ -49,7 +51,6 @@ export const OtpScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 62,
     backgroundColor: "#fff",
   },
   verify: {

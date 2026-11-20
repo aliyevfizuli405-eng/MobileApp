@@ -1,56 +1,102 @@
-// React 
-import { useState, useEffect } from "react";
+
+import { useEffect, useState } from "react";
 
 // Expo
 import { StatusBar } from "expo-status-bar";
 import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
+import * as ExpoSplashScreen from "expo-splash-screen";
+
+// React Navigation
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 // React Native
-import {
-  StyleSheet,
-  Image,
-  Text,
-  Pressable,
-  ImageBackground,
-  Alert,
-  View,
-  TextInput
-} from "react-native";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-// Icons and colors
-import play from "./assets/images/playicon.png";
-import { reng } from "./src/colors";
-import { fontsToLoad } from "./src/fonts";
+// Fonts
+import { fontsToLoad } from "./src/constants/fonts";
 
-// Screens and Componenets
-import { RegisterScreen } from "./src/screens/auth/register/RegisterScreen";
-import { Button } from "./src/components/Button/Button";
-import { SignUpScreen } from "./src/screens/auth/signup/SignUpScreen";
-import { OtpScreen } from "./src/screens/auth/otp/OtpScreen";
-import { LoginScreen } from "./src/screens/auth/login/LoginScreen";
+// Screens
+import { RegisterScreen } from "./src/screens/auth/Register/RegisterScreen";
+import { SignUpScreen } from "./src/screens/auth/SignUp/SignUpScreen";
+import { OtpScreen } from "./src/screens/auth/OTP/OtpScreen";
+import { LoginScreen } from "./src/screens/auth/Login/LoginScreen";
+import { OnboardingScreen } from "./src/screens/Onboarding/OnboardingScreen1";
+import { OnboardingScreen2 } from "./src/screens/Onboarding/OnboardingScreen2";
+import { SplashScreen } from "./src/screens/splashScreen/SplashScreen";
+;
 
+// Prevent Expo native splash from hiding automatically
+ExpoSplashScreen.preventAutoHideAsync().catch(() => {});
 
-SplashScreen.preventAutoHideAsync();
+const Stack = createNativeStackNavigator();
 
+// Navigation
+const RootStack = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Ob1" component={OnboardingScreen} />
+      <Stack.Screen name="Ob2" component={OnboardingScreen2}/>
+      <Stack.Screen name="Register" component={RegisterScreen} />
+      <Stack.Screen name="SignUp" component={SignUpScreen} />
+      <Stack.Screen name="OtpScreen" component={OtpScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+    </Stack.Navigator>
+  );
+};
+
+// Main App
 export default function App() {
   const [fontsLoaded, fontError] = useFonts(fontsToLoad);
 
+  const [isShowSplash, setIsShowSplash] = useState(true);
+
+  // Hide native splash when fonts are ready
   useEffect(() => {
     if (fontsLoaded || fontError) {
-      SplashScreen.hideAsync();
+      ExpoSplashScreen.hideAsync().catch(() => {});
     }
   }, [fontsLoaded, fontError]);
 
+  // Display custom splash for 3 seconds
+  useEffect(() => {
+    if (!fontsLoaded && !fontError) return;
+
+    const timer = setTimeout(() => {
+      setIsShowSplash(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [fontsLoaded, fontError]);
+
+  // Wait for fonts
   if (!fontsLoaded && !fontError) {
     return null;
   }
 
   return (
-    <>
-    <StatusBar/>
-  <RegisterScreen/>
-    </>
+    <SafeAreaProvider>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          backgroundColor: "white",
+        }}
+        edges={["top", "left", "right"]}
+      >
+        <StatusBar style="dark" />
+
+        {isShowSplash ? (
+          <SplashScreen />
+        ) : (
+          <NavigationContainer>
+            <RootStack />
+          </NavigationContainer>
+        )}
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-
